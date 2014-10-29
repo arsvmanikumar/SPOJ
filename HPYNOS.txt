@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include<malloc.h>
+#include <string.h>
+int no_of_digits(int num)
+{
+	int count=0;
+	while(num>0)
+	{
+		count++;
+		num=num/10;
+	}
+	return count;
+}
+
+void fun(int num)
+{
+	int *mem=NULL;
+	int result=0,reminder=0,res_count=0;;
+	int count=no_of_digits(num);
+	mem=(int *)malloc(sizeof(int)*9*9*(count+1));
+	memset(mem,0,sizeof(int)*9*count*count);
+	result=num;
+	num=0;
+	while(result!=1)
+	{
+		num=0;
+		while(result>0)
+		{
+			reminder=result%10;
+			num+=reminder*reminder;
+			result=result/10;
+		}
+		result=num;
+		
+		if(*(mem+result)==0)
+		{
+			*(mem+result)=1;
+		}
+		else
+			break;
+		res_count++;
+	}
+	if(result==1)
+		printf("%d\n",res_count);
+	else
+		printf("%d\n",-1);
+	
+}
+
+int main(void) {
+	// your code goes here
+	int num;
+	scanf("%d",&num);
+	fun(num);
+	return 0;
+}
